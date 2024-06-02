@@ -1,0 +1,25 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "koa",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "tsx ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http": "0.0.1-security",
+    "koa": "^2.15.0",
+    "koa-router": "^12.0.1",
+    "openai": "^4.28.4",
+    "socket.io": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-router": "^7.4.8",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}

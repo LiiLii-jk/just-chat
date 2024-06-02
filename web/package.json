@@ -1,0 +1,31 @@
+{
+  "name": "demo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/socket.io-client": "^3.0.0",
+    "esbuild": "^0.21.3",
+    "pinia": "^2.1.7",
+    "socket.io-client": "^4.7.5",
+    "three": "^0.163.0",
+    "vue": "^3.3.11",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@arco-design/web-vue": "^2.54.4",
+    "@types/node": "^20.12.6",
+    "@types/three": "^0.163.0",
+    "@vitejs/plugin-vue": "^4.5.2",
+    "electron": "^30.0.6",
+    "electron-builder": "^24.13.3",
+    "less": "^4.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vue-tsc": "^1.8.25"
+  }
+}
