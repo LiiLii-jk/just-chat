@@ -37,6 +37,8 @@ const asideMenuChange = (key: string) => {
     router.push({ name: 'Home' })
   } else {
     console.log('add room');
+    console.log("test");
+    
   }
 }
 
