@@ -20,8 +20,6 @@ const { roomName } = storeToRefs(messageStore)
 const router = useRouter()
 
 const roomList = computed(() => {
-  console.log(Object.keys(aSideGroup.value));
-  
   return Object.keys(aSideGroup.value)
 })
 
