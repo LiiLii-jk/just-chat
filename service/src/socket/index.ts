@@ -1,7 +1,11 @@
-import { botMessage, groupMap } from './util'
+import { botMessage, groupMap, messages } from './util'
 const { Server } = require('socket.io')
 import { ChatCompletionMessageParam } from 'openai/resources';
 import { getOpenaiReply } from '../service/openai'
+
+type gourp = {
+    [prop:string]:Array<object>
+}
 
 export const socketServer = (httpServer) => {
     const io = new Server(httpServer);
@@ -13,41 +17,45 @@ export const socketServer = (httpServer) => {
         socket.on('join', ({ name, room }) => {
             socket.join(room)
             if (groupMap[room]) {
+                let key:keyof gourp
+                for(key in groupMap) {
+                    console.log(groupMap,key);
+                    groupMap[key] = groupMap[key].filter((item) => item.name !== name )
+                }
                 if (!groupMap[room].some(i => i.name === name)) groupMap[room].push({ name, id: socket.id })
             } else {
                 groupMap[room] = [{ name, id: socket.id }]
+                messages[room] = []
             }
 
             socket.emit('groupMap', groupMap)
             socket.broadcast.emit('groupMap', groupMap)
-
-            // socket.broadcast.to(room).emit('message', {
-            //     name: '管理员',
-            //     message: `欢迎${name}加入${room}号聊天室`
-            // })
+            if(room !== 'bot') {
+                socket.emit('messages',messages[room])
+            }
+            console.log(messages);
+              
         })
 
         socket.on('startBot', (name) => {
             if (!botMessage[name]) {
                 botMessage[name] = [] as ChatCompletionMessageParam[]
             }
-            console.log(botMessage);
         })
 
         socket.on('message', ({ name, message, room }) => {
             console.log(name, message, room);
             if (room === 'bot') {
-                console.log('botmessage',botMessage[name]);
-                
                 getOpenaiReply(name,message).then((res) => {
-                    console.log(res);
                     const reply = res === undefined ? 'gpt功能有问题' : res
                     socket.emit('botMessage', reply)
                 })
-                botMessage[name].push({role:name,content:message})
+                botMessage[name].push({role:"user",content:message})
             } else {
-                console.log({name,message});
-                
+                messages[room].push({
+                    user:name,
+                    message:message
+                })
                 socket.broadcast.to(room).emit('message', { name, message })
             }
         })

@@ -1,7 +1,13 @@
 const botMessage = {}
 
-const groupMap = {
-    mainRoom:[]
+const messages = {
+    mainRoom:[],
+    secondRoom:[]
 }
 
-export { botMessage, groupMap }
+const groupMap = {
+    mainRoom:[],
+    secondRoom:[]
+}
+
+export { botMessage, groupMap, messages }

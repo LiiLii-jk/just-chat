@@ -42,14 +42,28 @@ const initWebsocket = (wsUrl:string) => {
     getGroupMap()
     getMessage()
     getBotMessage()
+    getRoomMessages()
 }
 
 const joinRoom = (name:string,room:string) => {
     socket.emit('join',{name,room})
 }
 
+const getRoomMessages = () => {
+    socket.on('messages',(data:any) => {
+        messageList.value = data
+    })
+}
+
 const openBot = () => {
     socket.emit('startBot',userName.value)
+    messageList.value = [
+        {
+            message: "你好",
+            user: "bot",
+            img: ""
+        }
+    ]
 }
 
 const getGroupMap = () => {

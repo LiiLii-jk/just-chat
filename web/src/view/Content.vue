@@ -10,6 +10,9 @@ import { useRouter } from 'vue-router'
 import { joinRoom, openBot } from '@/utils/websocket';
 import { userMessageStore, groupMapStore, MessageStore, storeToRefs } from '@/store/index';
 
+const visible = ref(false)
+const newRoomName = ref('')
+
 const groupStore = groupMapStore()
 const userStore = userMessageStore()
 const messageStore = MessageStore()
@@ -35,10 +38,6 @@ const asideMenuChange = (key: string) => {
     openBot()
   } else if (key === 'home') {
     router.push({ name: 'Home' })
-  } else {
-    console.log('add room');
-    console.log("test");
-    
   }
 }
 
@@ -46,6 +45,15 @@ const roomClick = (key: string) => {
   router.push({ name: 'Dialog' })
   roomName.value = key
   joinRoom(userName.value, key)
+}
+
+const roomAdd = () => {
+  visible.value = true
+}
+
+const handleOk = () => {
+  joinRoom(userName.value,newRoomName.value)
+  roomName.value = newRoomName.value
 }
 </script>
 
@@ -65,14 +73,20 @@ const roomClick = (key: string) => {
           <template #title>{{ item }}</template>
           <a-menu-item v-for="user in aSideGroup[item]" :key="user.name">{{ user.name }}</a-menu-item>
         </a-sub-menu>
-        <a-menu-item key="add">
+        <a-button class="add_room" @click="roomAdd">
           <IconPlus />
           ADD
-        </a-menu-item>
+        </a-button>
       </a-menu>
     </a-layout-sider>
     <router-view></router-view>
   </a-layout>
+  <a-modal v-model:visible="visible" @ok="handleOk">
+    <template #title>
+      Plesae enter RoomName
+    </template>
+    <a-input v-model="newRoomName"></a-input>
+  </a-modal>
 </template>
 
 <style lang="less" scoped>
@@ -90,5 +104,9 @@ const roomClick = (key: string) => {
 
 .layout-demo :deep(.arco-layout-sider-light) .logo {
   background: var(--color-fill-2);
+}
+
+.add_room {
+  width: 100%;
 }
 </style>

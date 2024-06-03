@@ -2,7 +2,6 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 
 import { sendMessage } from "@/utils/websocket"
-
 import { userMessageStore, storeToRefs } from "./index"
 
 export const MessageStore = defineStore("Message", () => {
@@ -14,16 +13,15 @@ export const MessageStore = defineStore("Message", () => {
         {
             message: "你好",
             user: "bot",
-            img: ""
         }
     ])
 
     function updateMessage(type: string, newMessage: string) {
+        console.log(messageList.value)
         if (type === "submit") {
             messageList.value.push({
                 message: newMessage,
                 user: userName.value,
-                img: ""
             })
             sendMessage(userName.value, newMessage, roomName.value)
         } else {

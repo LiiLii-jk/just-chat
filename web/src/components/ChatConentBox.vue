@@ -12,13 +12,16 @@ const { userName } = storeToRefs(userStore)
     <div>
         <div class="content">
             <div v-for="item in messageList" class="message_box" :class="[item.user === userName ? 'user_message' : 'bot_message']">
-                <div v-if="item.user !== userName">
-                    <IconRobot></IconRobot>
+                <div v-if="item.user === 'bot'">
+                    <IconRobot size="52"></IconRobot>
                 </div>
                 <div v-else>
-                    <IconUser></IconUser>
+                    <IconUser size="52"></IconUser>
                 </div>
-                <div class="message">{{ item.message }}</div>
+                <div class="message_name">
+                    <div class="name">{{ item.user }}</div>
+                    <div class="message">{{ item.message }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -36,6 +39,16 @@ const { userName } = storeToRefs(userStore)
     display: flex;
     min-height: 16px;
 
+    .message_name {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
     .message {
         padding: 10px;
         border-radius: 10px;
@@ -45,5 +58,11 @@ const { userName } = storeToRefs(userStore)
 
 .user_message {
     flex-direction: row-reverse;
+
+    .message_name {
+        .name {
+            flex-direction: row-reverse;
+        }
+    }
 }
 </style>
