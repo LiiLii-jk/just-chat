@@ -3,7 +3,8 @@ import { computed, ref } from 'vue';
 import {
   IconHome,
   IconCalendar,
-  IconPlus
+  IconPlus,
+  IconUserGroup
 } from '@arco-design/web-vue/es/icon';
 import { useRouter } from 'vue-router'
 
@@ -52,14 +53,15 @@ const roomAdd = () => {
 }
 
 const handleOk = () => {
-  joinRoom(userName.value,newRoomName.value)
+  joinRoom(userName.value, newRoomName.value)
   roomName.value = newRoomName.value
 }
 </script>
 
 <template>
   <a-layout class="layout-demo">
-    <a-layout-sider theme="dark" breakpoint="lg" :width="220" hide-trigger collapsible :collapsed="collapsed" @collapse="onCollapse">
+    <a-layout-sider theme="dark" breakpoint="lg" :width="220" collapsible :collapsed="collapsed"
+      @collapse="onCollapse">
       <a-menu @menuItemClick="asideMenuChange">
         <a-menu-item key="home">
           <IconHome />
@@ -70,8 +72,18 @@ const handleOk = () => {
           BOT
         </a-menu-item>
         <a-sub-menu v-for="item in roomList" :key="item" @click="roomClick(item)">
-          <template #title>{{ item }}</template>
-          <a-menu-item v-for="user in aSideGroup[item]" :key="user.name">{{ user.name }}</a-menu-item>
+          <template #title>
+            <IconUserGroup />
+            {{ item }}
+          </template>
+          <a-menu-item v-if="aSideGroup[item].length !== 0" >
+            <div v-for="user in aSideGroup[item]" :key="user.name">
+              {{ user.name }}
+            </div>
+          </a-menu-item>
+          <a-menu-item v-else>
+            暂无用户
+          </a-menu-item>
         </a-sub-menu>
         <a-button class="add_room" @click="roomAdd">
           <IconPlus />

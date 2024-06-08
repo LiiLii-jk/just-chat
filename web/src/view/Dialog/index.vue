@@ -9,14 +9,15 @@
 
 <style lang='less' scoped>
 .main {
-    padding: 20px;
-
     .chat_content_box {
-        height: 80%;
+        padding: 20px;
+        height: calc(80% - 40px);
+        max-width: calc(100% - 40px);
     }
 
     .chat_input_box {
-        height: 20%;
+        padding: 0 20px 20px 20px;
+        height: calc(20% - 20px);
     }
 }
 </style>

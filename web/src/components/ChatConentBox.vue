@@ -42,18 +42,21 @@ const { userName } = storeToRefs(userStore)
     .message_name {
         display: flex;
         flex-direction: column;
+        max-width: 500px;
+        word-wrap: break-word;
 
         .name {
             display: flex;
             flex-direction: row;
         }
+
+        .message {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #fff;
+        }
     }
 
-    .message {
-        padding: 10px;
-        border-radius: 10px;
-        background-color: #fff;
-    }
 }
 
 .user_message {

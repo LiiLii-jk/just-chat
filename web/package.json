@@ -21,7 +21,7 @@
     "@types/node": "^20.12.6",
     "@types/three": "^0.163.0",
     "@vitejs/plugin-vue": "^4.5.2",
-    "electron": "^30.0.6",
+    "electron": "^30.0.9",
     "electron-builder": "^24.13.3",
     "less": "^4.2.0",
     "typescript": "^5.2.2",
